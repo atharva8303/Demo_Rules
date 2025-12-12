@@ -1,0 +1,68 @@
+#################################
+#        HTTP RULES
+#################################
+
+alert http any any -> any any (msg:"HTTP GET Detected"; content:"GET"; http_method; sid:1001; rev:1;)
+alert http any any -> any any (msg:"Access to /admin detected"; http_uri; content:"/admin"; sid:1002; rev:1;)
+alert http any any -> any any (msg:"CURL User-Agent Detected"; content:"curl"; http_user_agent; sid:1003; rev:1;)
+alert http any any -> any any (msg:"Large HTTP Response"; dsize:>1048576; sid:1004; rev:1;)
+
+
+#################################
+#         TCP RULES
+#################################
+
+alert tcp any any -> any 23 (msg:"TCP Telnet Attempt"; sid:2001; rev:1;)
+alert tcp any any -> any any (msg:"NULL Scan Detected"; flags:0; sid:2002; rev:1;)
+alert tcp any any -> any any (msg:"Possible SYN Flood"; flags:S; threshold:type threshold, track by_src, count 20, seconds 1; sid:2003; rev:1;)
+
+
+#################################
+#         UDP RULES
+#################################
+
+alert udp any any -> any 161 (msg:"UDP SNMP Traffic Detected"; sid:3001; rev:1;)
+alert udp any any -> any 69 (msg:"TFTP Traffic Detected"; sid:3002; rev:1;)
+alert udp any any -> any any (msg:"Large UDP Packet Detected"; dsize:>1024; sid:3003; rev:1;)
+
+
+#################################
+#         DNS RULES
+#################################
+
+alert dns any any -> any 53 (msg:"DNS Query for bad.com"; dns_query; content:"bad.com"; sid:4001; rev:1;)
+alert dns any any -> any 53 (msg:"DNS ANY Query Detected"; content:"\x00\xff\x00\x01"; sid:4002; rev:1;)
+alert dns any any -> any 53 (msg:"Long DNS Query (Possible DGA)"; dns_query; pcre:"/.{40,}/"; sid:4003; rev:1;)
+
+
+#################################
+#         ICMP RULES
+#################################
+
+alert icmp any any -> any any (msg:"ICMP Echo Request"; icmp_type:8; sid:5001; rev:1;)
+alert icmp any any -> any any (msg:"ICMP Echo Reply"; icmp_type:0; sid:5002; rev:1;)
+alert icmp any any -> any any (msg:"Possible ICMP Flood"; threshold:type threshold, track by_src, count 50, seconds 1; sid:5003; rev:1;)
+
+
+#################################
+#          SSH RULES
+#################################
+
+alert tcp any any -> any 22 (msg:"SSH Connection Attempt"; sid:6001; rev:1;)
+alert tcp any any -> any 22 (msg:"SSH Brute Force"; flags:S; threshold:type both, track by_src, count 5, seconds 60; sid:6002; rev:1;)
+
+
+#################################
+#          FTP RULES
+#################################
+
+alert ftp any any -> any 21 (msg:"FTP USER Command"; content:"USER "; sid:7001; rev:1;)
+alert ftp any any -> any 21 (msg:"FTP PASS Command"; content:"PASS "; sid:7002; rev:1;)
+
+
+#################################
+#    BASIC MALWARE INDICATORS
+#################################
+
+alert ip any any -> any any (msg:"Possible Shell Execution"; content:"/bin/sh"; sid:8001; rev:1;)
+alert http any any -> any any (msg:"Base64 Reverse Shell"; content:"/dev/tcp/"; sid:8002; rev:1;)
