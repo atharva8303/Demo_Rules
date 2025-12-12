@@ -1,0 +1,1 @@
+alert udp any any -> any 69 (msg:"TFTP Traffic Detected"; sid:3002; rev:1;)

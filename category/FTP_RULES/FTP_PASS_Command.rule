@@ -1,0 +1,1 @@
+alert ftp any any -> any 21 (msg:"FTP PASS Command"; content:"PASS "; sid:7002; rev:1;)

@@ -1,0 +1,1 @@
+alert dns any any -> any 53 (msg:"DNS Query for bad.com"; dns_query; content:"bad.com"; sid:4001; rev:1;)

@@ -1,0 +1,1 @@
+alert tcp any any -> any any (msg:"NULL Scan Detected"; flags:0; sid:2002; rev:1;)

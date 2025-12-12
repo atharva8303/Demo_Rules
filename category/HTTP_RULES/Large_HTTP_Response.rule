@@ -1,0 +1,1 @@
+alert http any any -> any any (msg:"Large HTTP Response"; dsize:>1048576; sid:1004; rev:1;)

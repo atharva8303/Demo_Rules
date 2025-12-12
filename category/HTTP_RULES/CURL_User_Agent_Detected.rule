@@ -1,0 +1,1 @@
+alert http any any -> any any (msg:"CURL User-Agent Detected"; content:"curl"; http_user_agent; sid:1003; rev:1;)

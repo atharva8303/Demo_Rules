@@ -1,0 +1,1 @@
+alert icmp any any -> any any (msg:"Possible ICMP Flood"; threshold:type threshold, track by_src, count 50, seconds 1; sid:5003; rev:1;)

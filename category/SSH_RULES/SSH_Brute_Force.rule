@@ -1,0 +1,1 @@
+alert tcp any any -> any 22 (msg:"SSH Brute Force"; flags:S; threshold:type both, track by_src, count 5, seconds 60; sid:6002; rev:1;)

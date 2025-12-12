@@ -1,0 +1,1 @@
+alert icmp any any -> any any (msg:"ICMP Echo Reply"; icmp_type:0; sid:5002; rev:1;)

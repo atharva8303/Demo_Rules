@@ -1,0 +1,1 @@
+alert udp any any -> any any (msg:"Large UDP Packet Detected"; dsize:>1024; sid:3003; rev:1;)

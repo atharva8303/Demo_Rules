@@ -1,0 +1,1 @@
+alert dns any any -> any 53 (msg:"DNS ANY Query Detected"; content:"\x00\xff\x00\x01"; sid:4002; rev:1;)

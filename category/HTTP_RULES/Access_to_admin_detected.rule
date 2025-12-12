@@ -1,0 +1,1 @@
+alert http any any -> any any (msg:"Access to /admin detected"; http_uri; content:"/admin"; sid:1002; rev:1;)

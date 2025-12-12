@@ -1,0 +1,1 @@
+alert dns any any -> any 53 (msg:"Long DNS Query (Possible DGA)"; dns_query; pcre:"/.{40,}/"; sid:4003; rev:1;)
